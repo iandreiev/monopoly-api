@@ -1,0 +1,13 @@
+//Methods
+
+Users:
+GET /users 
+POST /users 
+GET /users/:id
+PATCH /users/:id
+DELETE /users/:id
+
+Chart:
+
+
+Websetup - READY
