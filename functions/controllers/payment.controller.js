@@ -69,36 +69,3 @@ exports.findOne = (req, res) => {
         } else res.send(data);
     })
 }
-
-exports.withdraw = (req,res) => {
-    Payment.createTx(req.body.currency1, req.body.currency2, req.body.amount, req.body.address, (err,data)=>{
-        if (err)
-        res.status(500).send({
-            message:
-                err.message || "Some error occured while retrieving transactions"
-        });
-        else res.send(data);
-    })
-}
-
-exports.getInfo = (req,res) => {
-    Payment.getClient((err,data)=>{
-        if (err)
-        res.status(500).send({
-            message:
-                err.message || "Some error occured while retrieving transactions"
-        });
-    else res.send(data);
-    })
-}
-
-exports.getRates = (req,res) => {
-    Payment.getRates((err,data)=>{
-        if (err)
-        res.status(500).send({
-            message:
-                err.message || "Some error occured while retrieving transactions"
-        });
-    else res.send(data);
-    })
-}

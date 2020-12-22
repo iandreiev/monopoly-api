@@ -1,8 +1,9 @@
+
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const path = require("path")
-// const functions = require('firebase-functions');
+const functions = require('firebase-functions');
 const app = express();
 
 
@@ -55,6 +56,9 @@ io.on("connection", function(socket){
 
 
 
-http.listen(3000, () => {
+http.listen(4000, () => {
     console.log("Server is running on port 3000.");
   });
+
+
+exports.app = functions.https.onRequest(app);
