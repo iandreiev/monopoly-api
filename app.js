@@ -4,6 +4,7 @@ const cors = require("cors");
 const path = require("path")
 // const functions = require('firebase-functions');
 const app = express();
+const fs = require('fs')
 
 
 
@@ -11,7 +12,16 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors( ));
 //Soket.IO Server
-const http = require("http").createServer(app);
+
+//HTTPS
+
+const options = {
+  key: fs.readFileSync('key.pem'),
+  cert: fs.readFileSync('cert.pem')
+}
+
+const https = require("https").createServer(options, app);
+
 io = require("socket.io")(http, {
   cors: {
     origin: '*',
@@ -24,7 +34,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // simple route
 app.get("/", (req, res) => {
-  res.json({ message: "MP API" });
+  res.json({ message: " Hey buddy, I think you've got the wrong door, the leather club's two blocks down." });
 });
 
 
@@ -58,6 +68,6 @@ io.on("connection", function(socket){
 
 
 
-http.listen(3000, () => {
+https.listen(3000, () => {
     console.log("Server is running on port 3000.");
   });
