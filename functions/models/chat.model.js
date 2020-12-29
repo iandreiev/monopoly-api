@@ -3,7 +3,7 @@ const sql = require("./db")
 const NewChat = function(chat){
     this.userID = chat.userID;
     this.address = chat.address;
-    this.createdAt = new Date();
+    this.createdAt = new Date().toDateString();
     this.chatTitle = chat.chatTitle;
     this.type = chat.type;
 }

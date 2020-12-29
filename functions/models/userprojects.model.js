@@ -8,6 +8,7 @@ const UserProject = function (userProject) {
     this.percentage = userProject.percentage;
     this.shareSize = userProject.shareSize;
     this.active = userProject.active;
+    this.type = userProject.type;
 }
 
 
@@ -18,9 +19,20 @@ UserProject.buy = (newUserProject,result) => {
           result(err,null);
           return;
       }
+      sql.query("UPDATE projects SET backers=backers+1 WHERE id = ?", newUserProject.projectID, (err,res)=>{
+          console.log(res)
+          result(null, res)
+          return
+      })
+      sql.query("UPDATE projects SET funded=funded+? WHERE id = ?", [newUserProject.userfunded, newUserProject.projectID], (err,res)=>{
+        console.log(res)
+        result(null, res)
+        return
+    })
 
       console.log("Project item created: ", {id: res.insertId, ...newUserProject});
       result(null, {id: res.insertId, ...newUserProject}); 
+      return
     })
 }
 

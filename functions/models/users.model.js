@@ -196,8 +196,8 @@ User.findById = (userId, result) => {
 }
 
 User.updateById = (id, user, result) => {
-    sql.query("UPDATE users SET name = ?, surname = ?, fathername = ?, displayName = ?, taxid = ?, phone = ?, email = ?, sex = ?, isVerified = ?, isPhoneVerified = ?, isEmailVerified = ? WHERE id = ?",
-        [user.name, user.surname, user.fathername, user.displayName, user.taxid, user.phone, user.email, user.sex, user.isVerified, user.isPhoneVerified, user.isEmailVerified, id],
+    sql.query("UPDATE users SET name = ?, surname = ?, fathername = ?, displayName = ?, taxid = ?, phone = ?, email = ?, sex = ?  WHERE id = ?",
+        [user.name, user.surname, user.fathername, user.displayName, user.taxid, user.phone, user.email, user.sex, id],
         (err, res) => {
             if (err) {
                 console.log("error: ", err);
@@ -270,7 +270,7 @@ User.remove = (id, result) => {
 };
 
 User.getUserProjects = (id, result) => {
-    sql.query("SELECT projects.*, userprojects.userID, userprojects.createdAt, userprojects.userfunded, userprojects.percentage, userprojects.shareSize from projects inner join userprojects on userprojects.projectId = projects.id WHERE userID = ?", id, (err, res) => {
+    sql.query("SELECT projects.*, userprojects.userID, userprojects.createdAt, userprojects.type, userprojects.userfunded, userprojects.percentage, userprojects.shareSize from projects inner join userprojects on userprojects.projectId = projects.id WHERE userID = ?", id, (err, res) => {
         if (err) {
             console.log("error: ", err);
             result(null, err);
@@ -299,12 +299,25 @@ User.setUserPassword = (password, id, result) => {
     sql.query("UPDATE users SET password = ? WHERE id = ?", [password,id], (err,res)=>{
         if (err) {
             console.log("error: ", err);
-            result(null, err);
+            result(err,null);
             return;
         }
 
-        console.log("updated user: ", { id: id });
-            result(null, { id: id });
+        console.log("updated user: ", { id: id, password:password });
+            result(null, { id: id});
+    })
+}
+
+User.resetUserPassword = (password, email, result) => {
+    sql.query("UPDATE users SET password = ? WHERE email = ?", [password, email], (err,res)=>{
+        if (err) {
+            console.log("error: ", err);
+            result(err,null);
+            return;
+        }
+
+        console.log("updated user: ", { email: email });
+            result(null, { email: email });
     })
 }
 

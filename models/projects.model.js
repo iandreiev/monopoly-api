@@ -36,11 +36,14 @@ Project.create = (newProject, result) => {
 //GetAll
 Project.getAll = result => {
     sql.query("SELECT * FROM projects", (err,res)=>{
+       
         if (err) {
             console.log("error: ", err);
             result(null, err);
             return;
           }
+
+          console.log("Project ID", res[0].id)
       
           console.log("Project: ", res);
           result(null, res);  

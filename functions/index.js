@@ -1,9 +1,17 @@
+const functions = require('firebase-functions');
 
+// // Create and Deploy Your First Cloud Functions
+// // https://firebase.google.com/docs/functions/write-firebase-functions
+//
+// exports.helloWorld = functions.https.onRequest((request, response) => {
+//   functions.logger.info("Hello logs!", {structuredData: true});
+//   response.send("Hello from Firebase!");
+// });
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const path = require("path")
-const functions = require('firebase-functions');
+// const functions = require('firebase-functions');
 const app = express();
 
 
@@ -47,6 +55,9 @@ require("./routes/userprojects.routes.js")(app);
 require("./routes/history.routes.js")(app);
 require("./routes/notifications.routes.js")(app);
 require("./routes/wallet.routes.js")(app);
+require("./routes/sms.routes.js")(app);
+require("./routes/mailer.routes")(app);
+require("./routes/videos.routes")(app);
 
 
 
@@ -56,9 +67,6 @@ io.on("connection", function(socket){
 
 
 
-http.listen(4000, () => {
+http.listen(3000, () => {
     console.log("Server is running on port 3000.");
   });
-
-
-exports.app = functions.https.onRequest(app);

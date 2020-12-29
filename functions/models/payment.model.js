@@ -1,5 +1,15 @@
 const sql = require("./db")
+const Coinpayments = require("coinpayments")
+const { number } = require("joi")
 
+var options = {
+    key: 'fe0a53535bb85a5305c0cb0695940c83b6357710b1a96a2961e81a637db735e6',
+    secret: '0CC260cB0f19675eC4348A3cb0bC4194F4977321e6fcAd4306Dbc773ce1557Fd',
+    autoIpn: true,
+    ipnTime: false
+}
+
+var client = new Coinpayments(options)
 /*
 Payment types
 
@@ -21,24 +31,24 @@ const Payment = function (pay) {
     this.userID = pay.userID;
     this.type = pay.type;
     this.amount = pay.amount;
-    this.rate_btc = pay.rate_btc;  
+    this.rate_btc = pay.rate_btc;
     this.projectID = pay.projectID;
-    this.createdAt = new Date();  
+    this.createdAt = new Date().toDateString();
     this.shareSize = pay.shareSize;
 }
 
 
 // Provide payment data to the system
 Payment.create = (newPay, result) => {
-    sql.query("INSERT INTO transactions SET ?", newPay, (err,res)=>{
-        if(err){
+    sql.query("INSERT INTO transactions SET ?", newPay, (err, res) => {
+        if (err) {
             console.log("Error: ", err);
-            result(err,null);
+            result(err, null);
             return;
         }
 
-        console.log("TX created: ", {id: res.insertId, ...newPay});
-        result(null, {id: res.insertId, ...newPay}); 
+        console.log("TX created: ", { id: res.insertId, ...newPay });
+        result(null, { id: res.insertId, ...newPay });
     })
 }
 
@@ -50,55 +60,96 @@ Payment.create = (newPay, result) => {
 // - 7 - returns
 
 Payment.updateType = (id, type, result) => {
-    sql.query("UPDATE transactions SET type = ? WHERE id = ?", [type, id], (err,res)=>{
-        if (err){
+    sql.query("UPDATE transactions SET type = ? WHERE id = ?", [type, id], (err, res) => {
+        if (err) {
             console.log("error: ", err);
-            result(null,err);
+            result(null, err);
             return;
         }
 
-        if(res.affectedRow == 0){
-            result({kind: "not_found"}, null);
+        if (res.affectedRow == 0) {
+            result({ kind: "not_found" }, null);
             return;
         }
 
-        console.log("updated project: ", {id:  id, type: type});
-        result(null, {id:id, type: type});
+        console.log("updated project: ", { id: id, type: type });
+        result(null, { id: id, type: type });
     })
 }
 
 // Get all transactions
 
 Payment.getAll = result => {
-    sql.query("SELECT * FROM transactions", (err,res)=>{
+    sql.query("SELECT * FROM transactions", (err, res) => {
         if (err) {
             console.log("error: ", err);
             result(null, err);
             return;
-          }
-      
-          console.log("Project: ", res);
-          result(null, res);  
+        }
+
+        console.log("Project: ", res);
+        result(null, res);
     })
 }
 
-Payment.findById = (userId, result) =>{
-    sql.query("SELECT * FROM transactions WHERE userID = ?", userId, (err,res)=>{
+Payment.findById = (userId, result) => {
+    sql.query("SELECT * FROM transactions WHERE userID = ?", userId, (err, res) => {
         if (err) {
             console.log("error: ", err);
             result(err, null);
             return;
-          }
-      
-          if (res.length) {
+        }
+
+        if (res.length) {
             console.log("found project item: ", res);
             result(null, res);
             return;
-          }
-      
-          // not found project with the id
-          result({ kind: "not_found" }, null); 
+        }
+
+        // not found project with the id
+        result({ kind: "not_found" }, null);
     })
 }
 
-module.exports =  Payment;
+Payment.getClient = result => {
+    client.getBasicInfo(function (err, res) {
+        err ? console.log(err) :
+            result(null, res)
+    })
+}
+
+Payment.createTx = (
+    currency1,
+    currency2,
+    amount,
+    address,
+    result
+) => {
+    client.createWithdrawal({
+        
+        
+
+        function(err, res) {
+            if (err) {
+                console.log(err)
+                result(null, err)
+            } else {
+                console.log(res)
+                result(null, res)
+            }
+        }
+    })
+}
+
+Payment.getRates = (currency, result) => {
+    client.rates({
+        'short': 1,
+        'accepted': 1,
+        function(err,res){
+            err ? console.log(err) :
+            result(null, res)
+        }
+    })
+}
+
+module.exports = Payment;

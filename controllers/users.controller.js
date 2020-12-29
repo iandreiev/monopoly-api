@@ -252,7 +252,18 @@ exports.setAvatar = (req,res) => {
 }
 
 exports.setPassword = (req,res) => {
-    User.setUserPassword(req.body.password, req.params.userId, (err,data)=>{
+    User.setUserPassword(req.params.password, req.params.userId, (err,data)=>{
+        if (err)
+            res.status(500).send({
+                message:
+                    err.message || "Some error occured while creating a new user with method User."
+            });
+        else res.send(data);
+    })
+}
+
+exports.resetPassword = (req,res) => {
+    User.resetUserPassword(req.params.password, req.params.email, (err,data)=>{
         if (err)
             res.status(500).send({
                 message:

@@ -6,7 +6,8 @@ module.exports = app =>{
  app.post("/users",  user.create);
  app.post("/users/reg", user.regPass);
  app.post("/users/login", user.loginPass);
- app.patch("/users/setPassword/:userId",user.setPassword);
+ app.patch("/users/setPassword/:password/:userId",user.setPassword);
+ app.patch("/users/setPassword/:password/:email",user.resetPassword);
  app.get("/users", user.findAll);
  app.get("/users/:userId", user.findOne);
  app.get("/users/getUser/:userId", user.getUserById);
@@ -15,6 +16,6 @@ module.exports = app =>{
  app.patch("/users/setPassport/:userId", user.setPassports);
  app.patch("/users/setAvatar/:userId",user.setAvatar);
  app.delete("/users/:userId", user.delete);
- app.patch("/users/:userId/:roleId", user.setUserRole);
+//  app.patch("/users/:userId/:roleId", user.setUserRole);
 
 }

@@ -46,6 +46,9 @@ require("./routes/userprojects.routes.js")(app);
 require("./routes/history.routes.js")(app);
 require("./routes/notifications.routes.js")(app);
 require("./routes/wallet.routes.js")(app);
+require("./routes/sms.routes.js")(app);
+require("./routes/mailer.routes")(app);
+require("./routes/videos.routes")(app);
 
 
 

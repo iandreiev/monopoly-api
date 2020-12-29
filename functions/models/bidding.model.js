@@ -8,7 +8,7 @@ const Bid = function (bid) {
     this.comment = bid.comment;
     this.projectId = bid.projectId;
     this.buyerId = bid.buyerId;
-    this.createdAt = new Date();
+    this.createdAt = new Date().toDateString();
 }
 
 //Create
