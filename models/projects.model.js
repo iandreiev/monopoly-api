@@ -2,8 +2,12 @@ const sql = require("./db.js");
 
 const Project = function(project){
     this.title = project.title;
+    this.title_en = project.title_en;
+    this.title_ch = project.title_ch;
     this.category = project.category;
     this.projectBrief = project.projectBrief;
+    this.projectBrief_en = project.projectBrief_en;
+    this.projectBrief_ch = project.projectBrief_ch;
     this.funded = project.funded;
     this.pledged = project.pledged;
     this.backers = project.backers;
@@ -16,6 +20,8 @@ const Project = function(project){
     this.minimum = project.minimum;
     this.cost = project.cost;
     this.location = project.location;
+    this.location_en = project.location_en;
+    this.location_ch = project.location_ch;
 }
 
 

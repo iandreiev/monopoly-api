@@ -2,6 +2,8 @@ const sql = require("./db.js");
 
 const Category = function (category) {
     this.title = category.title;
+    this.title_en = category.title_en;
+    this.title_ch = category.title_ch;
     this.alias = category.alias;
 };
 

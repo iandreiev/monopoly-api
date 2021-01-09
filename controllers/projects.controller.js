@@ -9,8 +9,12 @@ exports.create = (req, res) => {
 
     const project = new Project({
         title: req.body.title,
+        title_en: req.body.title_en,
+        title_ch: req.body.title_ch,
         category: req.body.category,
         projectBrief: req.body.projectBrief,
+        projectBrief_en: req.body.projectBrief_en,
+        projectBrief_ch: req.body.projectBrief_ch,
         funded: req.body.funded,
         pledged: req.body.pledged,
         backers: req.body.backers,
@@ -22,7 +26,9 @@ exports.create = (req, res) => {
         returns: req.body.returns,
         minimum: req.body.minimum,
         cost: req.body.cost,
-        location: req.body.location
+        location: req.body.location,
+        location_en: req.body.location_en,
+        location_ch: req.body.location_ch
     });
 
     Project.create(project, (err, data) => {

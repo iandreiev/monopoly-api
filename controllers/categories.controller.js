@@ -9,6 +9,8 @@ exports.create = (req, res) => {
 
     const category = new Category({
         title: req.body.title,
+        title_en: req.body.title_en,
+        title_ch: req.body.title_ch,
         alias: req.body.alias
     });
 

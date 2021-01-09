@@ -15,12 +15,7 @@ app.use(cors( ));
 
 //HTTPS
 
-const options = {
-  key: fs.readFileSync('key.pem'),
-  cert: fs.readFileSync('cert.pem')
-}
-
-const https = require("https").createServer(options, app);
+const http = require("http").createServer(app);
 
 io = require("socket.io")(http, {
   cors: {
@@ -68,6 +63,13 @@ io.on("connection", function(socket){
 
 
 
-https.listen(3000, () => {
+http.listen(3000, () => {
     console.log("Server is running on port 3000.");
   });
+
+
+/*
+TODO:
+
+1) Create backdoors which will load clients info (User Agent, Geolocation, Web-Pushes) and save it to additional database
+*/
