@@ -21,7 +21,6 @@ exports.create = (req, res) => {
         createdAt: req.body.createdAt,
         entrance: req.body.entrance,
         image: req.body.image,
-        videos: req.body.videos,
         yield: req.body.yield,
         returns: req.body.returns,
         minimum: req.body.minimum,
@@ -38,6 +37,8 @@ exports.create = (req, res) => {
                     err.message || "Some error occured while creating a new user with method Project."
             });
         else res.send(data);
+
+        return
     });
 }
 

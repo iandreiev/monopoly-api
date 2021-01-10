@@ -14,7 +14,6 @@ const Project = function(project){
     this.createdAt = new Date().toDateString();
     this.entrance = project.entrance;
     this.image = project.image;
-    this.videos = project.videos;
     this.yield = project.yield;
     this.returns = project.returns;
     this.minimum = project.minimum;
@@ -23,6 +22,8 @@ const Project = function(project){
     this.location_en = project.location_en;
     this.location_ch = project.location_ch;
 }
+
+
 
 
 //Create
