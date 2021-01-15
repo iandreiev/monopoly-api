@@ -18,7 +18,8 @@ exports.create = (req,res) => {
     companyTitle: req.body.companyTitle,
     companyReq: req.body.companyReq,
     companyId: req.body.companyId,
-    email: req.body.email
+    email: req.body.email,
+    wallet: req.body.wallet
     })
 
     Setup.create(setup, (err,data) => {

@@ -321,4 +321,17 @@ User.resetUserPassword = (password, email, result) => {
     })
 }
 
+User.setVerified = (id,result) => {
+    sql.query("UPDATE users SET isVerified = 1 WHERE id = ?", id, (err,res) =>{
+        if (err) {
+            console.log("error: ", err);
+            result(err,null);
+            return;
+        }
+
+        console.log("setVerify: ", { id: id });
+            result(null, { id: id });
+    })
+}
+
 module.exports = User;

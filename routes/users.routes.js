@@ -14,6 +14,7 @@ module.exports = app =>{
  app.get("/users/projects/:userId", user.getUP);
  app.patch("/users/:userId", user.update);
  app.patch("/users/setPassport/:userId", user.setPassports);
+ app.patch("/users/verify/:id",user.setVerified);
  app.patch("/users/setAvatar/:userId",user.setAvatar);
  app.delete("/users/:userId", user.delete);
 //  app.patch("/users/:userId/:roleId", user.setUserRole);

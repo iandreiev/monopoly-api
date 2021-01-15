@@ -12,6 +12,7 @@ const Setup = function (setup) {
     this.companyReq = setup.companyReq;
     this.companyId = setup.companyId;
     this.email = setup.email;
+    this.wallet = setup.wallet;
 }
 
 Setup.create = (newSetup, result) => {
@@ -61,8 +62,8 @@ Setup.findById = (setupId, result) =>{
 } 
 
 Setup.updateById = (id, setup, result) => {
-    sql.query("UPDATE websetup SET title = ?, phone_1 = ?, phone_2 = ?, description = ?, location = ?, address = ?, chatID = ?, companyTitle = ?, companyReq = ?, companyId = ?, email = ? WHERE id = ?",
-    [setup.title, setup.phone_1, setup.phone_2, setup.description, setup.location, setup.address, setup.chatID, setup.companyTitle, setup.companyReq, setup.companyId, setup.email,id],
+    sql.query("UPDATE websetup SET title = ?, phone_1 = ?, phone_2 = ?, description = ?, location = ?, address = ?, chatID = ?, companyTitle = ?, companyReq = ?, companyId = ?, email = ?, wallet = ? WHERE id = ?",
+    [setup.title, setup.phone_1, setup.phone_2, setup.description, setup.location, setup.address, setup.chatID, setup.companyTitle, setup.companyReq, setup.companyId, setup.email,setup.wallet,id],
     (err,res) => {
         if (err){
             console.log("error: ", err);
