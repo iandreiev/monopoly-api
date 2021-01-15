@@ -14,7 +14,8 @@ exports.buy = (req, res) => {
         userfunded: req.body.userfunded,
         percentage: req.body.percentage,
         shareSize: req.body.shareSize,
-        active: req.body.active
+        active: req.body.active,
+        type: req.body.type
     });
 
     UserProject.buy(uProject, (err, data) => {
