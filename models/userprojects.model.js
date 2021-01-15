@@ -22,12 +22,12 @@ UserProject.buy = (newUserProject,result) => {
       sql.query("UPDATE projects SET backers=backers+1 WHERE id = ?", newUserProject.projectID, (err,res)=>{
           console.log(res)
           result(null, res)
-          return
+          return;
       })
       sql.query("UPDATE projects SET funded=funded+? WHERE id = ?", [newUserProject.userfunded, newUserProject.projectID], (err,res)=>{
         console.log(res)
         result(null, res)
-        return
+        return;
     })
 
       console.log("Project item created: ", {id: res.insertId, ...newUserProject});
